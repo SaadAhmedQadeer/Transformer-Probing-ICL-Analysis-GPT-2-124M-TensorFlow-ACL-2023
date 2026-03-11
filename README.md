@@ -63,38 +63,6 @@ At optimal **α\* ≈ 0.1–0.2**:
 - Numeric (1/0) recover to **0.620** — full canonical-level accuracy
 - Canonical labels are **unaffected** (projection is a no-op when v_m = v_0)
 
----
-
-## Repository Structure
-
-```
-├── corrected_extractor.py     # GPT-2 hidden state extraction (space-prefix aware)
-├── main_reproduction.py       # Phase 2: Probing curve reproduction
-├── probing_classifier.py      # Layer-wise linear probing
-├── lsfs_experiment.py         # Phase 3: LSFS metric + variant accuracy
-├── projection_fix.py          # Phase 3: Canonical anchor projection
-├── ablation_runner.py         # Phase 4: Full ablation suite (5 ablations)
-├── dataset_prep.py            # SST-2 prompt formatting utilities
-│
-├── figures/                   # All generated figures
-│   ├── probe_accuracy_v4.png              # Reproduction: probing curve
-│   ├── fig1_accuracy_by_variant.png       # LSFS: accuracy by variant
-│   ├── fig2_lsfs_scores.png               # LSFS: sensitivity scores
-│   ├── fig3_probing_curves_overlay.png    # LSFS: probing curve comparison
-│   ├── fig4_embed_dist_vs_delta_acc.png   # LSFS: theory violation scatter
-│   ├── fig5_projection_alpha_sweep.png    # Projection: alpha sweep
-│   └── fig6_gap_recovery.png             # Projection: recovery rates
-│
-├── results/                   # JSON experiment outputs
-│   ├── lsfs_results.json
-│   ├── projection_results.json
-│   ├── abl2_order.json
-│   └── abl5_kshot.json
-│
-└── cache/                     # Cached hidden states (auto-generated)
-```
-
----
 
 ## Mathematical Background
 
@@ -147,17 +115,6 @@ an embedding-layer phenomenon.
 - **Runtime:** ~3–4 hours total for all experiments
 - **Seed:** Fixed (`np.random.default_rng(42)`) for full reproducibility
 
-```bash
-pip install tensorflow==2.13.0 transformers==4.35.0 \
-            datasets scikit-learn matplotlib numpy
-
-python main_reproduction.py    # ~90 min
-python lsfs_experiment.py      # ~90 min
-python projection_fix.py       # ~60 min
-python ablation_runner.py      # ~30 min (uses cache)
-```
-
----
 
 ## Citation
 
@@ -172,8 +129,3 @@ python ablation_runner.py      # ~30 min (uses cache)
 }
 ```
 
----
-
-*This project was conducted as an independent PhD application research project
-demonstrating mechanistic interpretability analysis, mathematical formalization
-of theoretical gaps, and training-free model correction.*
